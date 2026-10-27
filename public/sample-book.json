@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "book": {
+    "id": "sample-statistics",
+    "title": "Sample: Statistics Basics",
+    "author": "Reading Cards sample (original test text)",
+    "language": "en",
+    "license": "Sample text written for testing this app",
+    "source_url": null
+  },
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Data and variables",
+      "cards": [
+        {
+          "id": "sample-statistics-c01-001",
+          "number": 1,
+          "page": 1,
+          "title": null,
+          "text": "Statistics begins with data: the recorded values we collect about people, objects or events. Each thing we observe is called a unit or case, and each characteristic we record about it is called a variable. If we survey a class of students, every student is a case, while age, height and favourite subject are variables. Organising data this way, with one row per case and one column per variable, makes it much easier to count, compare and summarise what we have collected.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c01-002",
+          "number": 2,
+          "page": 1,
+          "title": "Two kinds of variables",
+          "text": "Variables come in two broad kinds. Categorical variables place each case into a group, such as eye colour, country of birth or type of transport used to get to school. Numerical variables record a quantity that can be measured or counted, such as weight, temperature or the number of siblings someone has. Knowing which kind of variable you are working with matters, because it decides which graphs make sense and which summaries, like an average, can be calculated at all.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c01-003",
+          "number": 3,
+          "page": 2,
+          "title": null,
+          "text": "Numerical variables can be split further. A discrete variable takes separate values that can be counted, such as the number of goals scored in a match: you can score two or three, but not two and a half. A continuous variable can take any value within a range, such as the time it takes to run a race, which could be 12.31 or 12.314 seconds depending on the precision of the stopwatch. In practice, every measurement is rounded to some level of precision.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c01-004",
+          "number": 4,
+          "page": 2,
+          "title": "Populations and samples",
+          "text": "The population is the entire group we want to learn about, for example every adult living in a country. Studying a whole population is often too slow or too expensive, so we usually collect data from a sample, a smaller group drawn from the population. The central idea of statistics is to use what we see in the sample to say something reasonable about the population, while being honest about the uncertainty that comes from not having looked at everyone.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c01-005",
+          "number": 5,
+          "page": 3,
+          "title": null,
+          "text": "How a sample is chosen matters as much as how large it is. In a simple random sample, every member of the population has the same chance of being selected, which helps the sample resemble the population. A sample chosen for convenience, such as asking only the people who walk past one shop on one afternoon, may be biased: it can systematically over-represent some groups and under-represent others, and collecting more data in the same way does not fix the problem.",
+          "mood": null
+        }
+      ],
+      "quiz": []
+    },
+    {
+      "number": 2,
+      "title": "Describing data",
+      "cards": [
+        {
+          "id": "sample-statistics-c02-001",
+          "number": 6,
+          "page": 4,
+          "title": "The mean",
+          "text": "The mean, often called the average, is found by adding up all the values and dividing by how many values there are. For the values 2, 4, 4, 5 and 10 the total is 25, and dividing by five gives a mean of 5. The mean uses every value in the data, which is a strength, but it also means that a single unusually large or small value can pull it a long way from where most of the data sit.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c02-002",
+          "number": 7,
+          "page": 4,
+          "title": "The median",
+          "text": "The median is the middle value once the data are sorted from smallest to largest. For 2, 4, 4, 5 and 10 the median is 4, the third of five values. When there is an even number of values, the median is the mean of the two middle ones. Because it depends only on position, the median is hardly affected by extreme values, which is why it is often preferred for skewed data such as incomes or house prices.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c02-003",
+          "number": 8,
+          "page": 5,
+          "title": null,
+          "text": "The mode is the value that appears most often. In the list 2, 4, 4, 5 and 10 the mode is 4. A data set can have one mode, several modes, or none at all if every value appears only once. The mode is the only one of the three common averages that also works for categorical data: it makes sense to say that the most common colour of car in a car park is grey, but not to calculate an average colour.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c02-004",
+          "number": 9,
+          "page": 5,
+          "title": "Measuring spread",
+          "text": "Two data sets can share the same mean and still look very different. The values 4, 5 and 6 and the values 0, 5 and 10 both have a mean of 5, but the second set is far more spread out. The simplest measure of spread is the range, the largest value minus the smallest. The range is easy to compute, yet it depends only on the two most extreme values, so a single unusual observation can change it dramatically.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c02-005",
+          "number": 10,
+          "page": 6,
+          "title": null,
+          "text": "The standard deviation measures how far values typically lie from the mean. To compute it, find how far each value is from the mean, square those distances, average them, and take the square root of the result. When working with a sample, the sum of squared distances is usually divided by one less than the number of values rather than by the number itself. A small standard deviation means the values are clustered near the mean; a large one means they are widely scattered.",
+          "mood": null
+        }
+      ],
+      "quiz": []
+    },
+    {
+      "number": 3,
+      "title": "First steps in probability",
+      "cards": [
+        {
+          "id": "sample-statistics-c03-001",
+          "number": 11,
+          "page": 7,
+          "title": "What probability measures",
+          "text": "A probability is a number between 0 and 1 that describes how likely an event is. A probability of 0 means the event cannot happen, a probability of 1 means it is certain, and values in between express different degrees of likelihood. Probabilities are often written as fractions, decimals or percentages, so one half, 0.5 and 50 percent all describe the same chance, such as a fair coin landing heads.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c03-002",
+          "number": 12,
+          "page": 7,
+          "title": null,
+          "text": "When all outcomes of an experiment are equally likely, the probability of an event is the number of outcomes in that event divided by the total number of possible outcomes. A fair six-sided die has six equally likely outcomes. The event of rolling an even number contains three of them, namely 2, 4 and 6, so its probability is three out of six, which simplifies to one half.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c03-003",
+          "number": 13,
+          "page": 8,
+          "title": "The complement rule",
+          "text": "The complement of an event is everything that can happen when that event does not. Because an event and its complement together cover all possibilities, their probabilities add up to 1. This gives a useful shortcut: the probability that something does not happen equals one minus the probability that it does. If the chance of rain tomorrow is 0.3, then the chance of no rain is 1 minus 0.3, which is 0.7.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c03-004",
+          "number": 14,
+          "page": 8,
+          "title": "Independent events",
+          "text": "Two events are independent when knowing whether one happened does not change the probability of the other. Separate flips of a fair coin are a classic example. For independent events, the probability that both happen is the product of their individual probabilities. The chance of two heads in two flips is one half times one half, which is one quarter, and the chance of three heads in a row is one eighth.",
+          "mood": null
+        },
+        {
+          "id": "sample-statistics-c03-005",
+          "number": 15,
+          "page": 9,
+          "title": null,
+          "text": "Over a small number of trials, results can stray far from what probability predicts: ten flips of a fair coin can easily give seven heads. As the number of trials grows, the proportion of heads tends to settle closer and closer to one half. This pattern, known as the law of large numbers, explains why probabilities describe long-run behaviour well while saying little about what will happen in any single trial.",
+          "mood": null
+        }
+      ],
+      "quiz": []
+    }
+  ]
+}

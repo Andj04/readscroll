@@ -1,0 +1,59 @@
+/* Color and type tokens. Light is the default; dark applies when the system
+   prefers it (unless the user forced light) or when the user forced dark. */
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --surface-2: #f3f1ec;
+  --text: #1f1f22;
+  --muted: #6c6b70;
+  --border: #e7e3da;
+  --accent: #2f6f5e;
+  --accent-text: #ffffff;
+  --accent-soft: #e2efe9;
+  --danger: #a33a2c;
+  --danger-soft: #fbeae7;
+  --ok-soft: #e2efe9;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-reading: 'Literata', Georgia, 'Times New Roman', serif;
+  --reading-size: 19px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #121214;
+    --surface: #1b1b1f;
+    --surface-2: #232328;
+    --text: #ebeae6;
+    --muted: #9d9ca3;
+    --border: #2d2d33;
+    --accent: #7cc4ad;
+    --accent-text: #0f1f1a;
+    --accent-soft: #1d3530;
+    --danger: #f08d7e;
+    --danger-soft: #3a1f1b;
+    --ok-soft: #1d3530;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #121214;
+  --surface: #1b1b1f;
+  --surface-2: #232328;
+  --text: #ebeae6;
+  --muted: #9d9ca3;
+  --border: #2d2d33;
+  --accent: #7cc4ad;
+  --accent-text: #0f1f1a;
+  --accent-soft: #1d3530;
+  --danger: #f08d7e;
+  --danger-soft: #3a1f1b;
+  --ok-soft: #1d3530;
+  --shadow: none;
+  color-scheme: dark;
+}
