@@ -125,3 +125,18 @@ test('Warns about pages with an unreliable reading order', async ({ page }) => {
   await importFile(page, 'two-columns.pdf');
   await expect(page.getByRole('status')).toContainText('Page 1: This page seems to have several columns', { timeout: 30_000 });
 });
+
+test('Importing sends nothing over the network', async ({ page }) => {
+  const requests: { method: string; url: string; body: boolean }[] = [];
+  page.on('request', (r) => requests.push({ method: r.method(), url: r.url(), body: !!r.postDataBuffer() }));
+  await importFile(page, 'harbour.pdf');
+  await expect(page.getByRole('heading', { name: 'Review the import' })).toBeVisible({ timeout: 30_000 });
+  await page.getByRole('button', { name: 'Add to library' }).click();
+  await expect(page).toHaveURL(/\/book\//);
+  // Only the app's own files may be loaded (e.g. the worker script). No upload, no other server.
+  for (const r of requests) {
+    expect(r.method).toBe('GET');
+    expect(r.body).toBe(false);
+    expect(new URL(r.url).origin).toBe('http://localhost:4174');
+  }
+});

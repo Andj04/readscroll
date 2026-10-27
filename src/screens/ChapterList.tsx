@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import Icon from '../components/Icon';
 import ProgressBar from '../components/ProgressBar';
+import RecutCards from '../components/RecutCards';
 import TopBar from '../components/TopBar';
 import { useBook, usePosition, useStatusMap } from '../hooks/data';
 import { allCards, cardRange, countRead, percent } from '../lib/progress';
@@ -66,6 +67,7 @@ export default function ChapterList() {
           })}
         </ul>
 
+        <RecutCards book={book} />
       </main>
     </div>
   );

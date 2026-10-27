@@ -150,3 +150,37 @@ test('a book known only from its progress shows "needs import", then links when 
   await page.goto('/');
   await expect(page.getByTestId('needs-import')).toHaveCount(0);
 });
+
+test('re-cutting a book from its chapter list keeps read marks, position and bookmarks', async ({ page }) => {
+  await page.goto('/');
+  await importAndAdd(page, 'harbour.pdf', 'Medium');
+  const bookUrl = new URL(page.url()).pathname;
+  await readCards(page, 2); // now on card 3, cards 1 and 2 read
+  await page.getByRole('button', { name: 'Bookmark this card' }).click();
+  type Card = { id: string; number: number; start: number; end: number };
+  const cardsNow = async () => (await withDb<{ chapters: { cards: Card[] }[] }[]>(page, all('books')))[0].chapters.flatMap((c) => c.cards);
+  const before = await cardsNow();
+  const oldCard3 = before[2];
+
+  await page.goto(bookUrl);
+  await page.getByRole('radio', { name: 'Short' }).click();
+  await page.getByRole('button', { name: 'Re-cut cards' }).click();
+  await expect(page.getByRole('status')).toContainText('Your progress was kept.');
+
+  const after = await cardsNow();
+  expect(after.length).toBeGreaterThan(before.length);
+  // Position and bookmark are on the new card that holds the start of the old card 3.
+  const holder = after.find((c) => c.start <= oldCard3.start && oldCard3.start < c.end)!;
+  const [position] = await withDb<{ cardId: string }[]>(page, all('positions'));
+  expect(position.cardId).toBe(holder.id);
+  const bookmarks = await withDb<{ cardId: string; deleted: boolean }[]>(page, all('bookmarks'));
+  expect(bookmarks.filter((b) => !b.deleted).map((b) => b.cardId)).toEqual([holder.id]);
+  // The text of old cards 1 and 2 is still read.
+  const statuses = await withDb<{ cardId: string; read: boolean }[]>(page, all('cardStatus'));
+  const readIds = new Set(statuses.filter((s) => s.read).map((s) => s.cardId));
+  for (const c of after.filter((c) => c.end <= before[1].end)) expect(readIds.has(c.id)).toBe(true);
+  for (const c of after.filter((c) => c.start >= oldCard3.start)) expect(readIds.has(c.id)).toBe(false);
+
+  await page.getByRole('link', { name: 'Continue reading' }).click();
+  await expect(page).toHaveURL(new RegExp(`/read/${holder.number}$`));
+});
