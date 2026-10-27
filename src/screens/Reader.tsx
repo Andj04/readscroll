@@ -6,7 +6,7 @@ import { useBook, useBookmarkedIds, useStatusMap } from '../hooks/data';
 import { markPassedCards, savePosition, setCardsRead, toggleBookmark } from '../lib/actions';
 import { db, DEFAULT_SETTINGS } from '../lib/db';
 import { chapterLabel, chapterOfCard, countRead, isRead, type StatusMap } from '../lib/progress';
-import type { BookFile, Chapter } from '../lib/schema';
+import type { BookFile, Chapter } from '../lib/model';
 import NotFound from './NotFound';
 
 /** Loads the book and settings, then renders the chapter that contains the requested card. */

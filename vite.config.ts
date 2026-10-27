@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/icon.svg', 'sample-book.json'],
+      includeAssets: ['icons/icon.svg'],
       manifest: {
         name: 'Reading Cards',
         short_name: 'Reading Cards',
@@ -23,7 +23,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,json}'],
+        globPatterns: ['**/*.{js,css,html,svg,png}'],
         // Single page app: every navigation falls back to index.html when offline.
         navigateFallback: '/index.html',
         // Cache Google Fonts the first time they load, so text keeps its fonts offline.

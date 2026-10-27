@@ -1,19 +1,6 @@
 import { db, DEFAULT_SETTINGS, type CardStatus, type Settings } from './db';
-import type { BookFile } from './schema';
 
 // All writes to the local database go through these functions.
-
-/** Stores a validated book. Re-importing the same book id replaces the file but keeps progress. */
-export async function saveBook(file: BookFile): Promise<{ replaced: boolean }> {
-  const existing = await db.books.get(file.book.id);
-  await db.books.put({
-    id: file.book.id,
-    file,
-    totalCards: file.chapters.reduce((n, ch) => n + ch.cards.length, 0),
-    importedAt: Date.now(),
-  });
-  return { replaced: existing !== undefined };
-}
 
 /**
  * Marks cards as read because the reader moved past them.

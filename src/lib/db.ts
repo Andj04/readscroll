@@ -1,5 +1,5 @@
 import { Dexie, type Table } from 'dexie';
-import type { BookFile } from './schema';
+import type { BookFile } from './model';
 
 /** A book stored on this device: the full validated file (quiz and mood included). */
 export interface StoredBook {

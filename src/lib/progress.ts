@@ -1,4 +1,4 @@
-import type { BookFile, Card, Chapter } from './schema';
+import type { BookFile, Card, Chapter } from './model';
 import type { CardStatus } from './db';
 
 // Pure helpers to compute progress. No database access here.

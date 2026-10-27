@@ -25,9 +25,7 @@ is deployed (localhost on a computer is fine).
 
 ## Test checklist
 
-1. **Import**: on the empty library, tap "Load the sample book", or "Import book" and pick `public/sample-book.json`.
-   Try importing a broken JSON file: a red box lists each problem with its location (for example
-   `chapters[0].cards[2].page: Invalid input: expected number, received string`).
+1. **Import**: being replaced by on-device PDF, EPUB and text import (work in progress).
 2. **Library**: progress bar, percentage and "Continue reading".
 3. **Chapters**: tap the book title. Finished chapters show a check, chapters in progress show a counter like `3/5`.
 4. **Card picker**: tap a chapter. Green cells are read, the outlined cell is the next unread card, plain cells are unread.
@@ -43,23 +41,11 @@ is deployed (localhost on a computer is fine).
 9. **Offline**: after `npm run build && npm run preview`, open the app once, then stop the server or switch off the
    network in the browser dev tools: the app and your books still load.
 
-## Book file format
-
-See `public/sample-book.json`. Rules checked on import:
-
-- `schema_version` must be `1`.
-- `book`: `id`, `title` (not empty), `author`, `language`, `license`, `source_url` (string or null).
-- `chapters`: at least one; each with a unique `number`, a `title`, at least one card, and an optional `quiz` array.
-- Each card: unique `id`, `number`, `page` (whole number), `title` (string or null), `text` (not empty), `mood` (optional).
-- Card numbers must run 1, 2, 3… across the whole book, in file order.
-
-`quiz` and `mood` are stored but not used yet. Re-importing a book with the same `id` replaces the file and keeps your progress.
-
 ## Project structure
 
 ```
 src/
-  lib/schema.ts     import validation (zod)
+  lib/model.ts      book, chapter and card types
   lib/db.ts         IndexedDB tables (Dexie)
   lib/actions.ts    all writes: import, read marks, position, bookmarks, settings
   lib/progress.ts   progress calculations (pure functions)
@@ -68,6 +54,4 @@ src/
   screens/          Library, ChapterList, CardPicker, Reader, Bookmarks, Settings
   components/       shared UI pieces
   styles/           theme tokens (light/dark) and layout
-public/
-  sample-book.json  small test book (original sample text, 3 chapters, 15 cards)
 ```
