@@ -4,7 +4,7 @@ import Icon from '../components/Icon';
 import TopBar from '../components/TopBar';
 import { toggleBookmark } from '../lib/actions';
 import { db } from '../lib/db';
-import { allCards, chapterOfCard } from '../lib/progress';
+import { allCards, cardPlace, chapterOfCard } from '../lib/progress';
 
 const PREVIEW_CHARS = 140;
 
@@ -26,14 +26,14 @@ export default function Bookmarks() {
           <ul className="list">
             {active.map((bm) => {
               const book = books.find((b) => b.id === bm.bookId);
-              const card = book && allCards(book.file).find((c) => c.id === bm.cardId);
-              const chapter = book && card && chapterOfCard(book.file, card.number);
+              const card = book && allCards(book).find((c) => c.id === bm.cardId);
+              const chapter = book && card && chapterOfCard(book, card.number);
               return (
                 <li key={`${bm.bookId}/${bm.cardId}`} className="bookmark-item">
                   {book && card ? (
                     <Link to={`/book/${encodeURIComponent(bm.bookId)}/read/${card.number}`} className="bookmark-link">
                       <div className="muted small">
-                        {book.file.book.title} · Ch. {chapter?.number} · p. {card.page} · #{card.number}
+                        {book.title} · Ch. {chapter?.number} · {cardPlace(card)} · #{card.number}
                       </div>
                       {card.title && <div className="bookmark-title">{card.title}</div>}
                       <div className="bookmark-text">

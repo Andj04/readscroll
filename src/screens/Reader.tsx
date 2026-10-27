@@ -5,8 +5,8 @@ import Icon from '../components/Icon';
 import { useBook, useBookmarkedIds, useStatusMap } from '../hooks/data';
 import { markPassedCards, savePosition, setCardsRead, toggleBookmark } from '../lib/actions';
 import { db, DEFAULT_SETTINGS } from '../lib/db';
-import { chapterLabel, chapterOfCard, countRead, isRead, type StatusMap } from '../lib/progress';
-import type { BookFile, Chapter } from '../lib/model';
+import { cardPlace, chapterLabel, chapterOfCard, countRead, isRead, type StatusMap } from '../lib/progress';
+import type { Chapter, StoredBook } from '../lib/model';
 import NotFound from './NotFound';
 
 /** Loads the book and settings, then renders the chapter that contains the requested card. */
@@ -23,7 +23,7 @@ export default function Reader() {
   if (book === null) return <NotFound message="This book is not imported on this device." />;
 
   const number = Number(params.cardNumber);
-  const chapter = chapterOfCard(book.file, number);
+  const chapter = chapterOfCard(book, number);
   if (!chapter) return <NotFound message="This card does not exist." />;
 
   return (
@@ -31,7 +31,7 @@ export default function Reader() {
       // A new chapter or a new mode mounts a fresh reader that starts at the requested card.
       key={`${chapter.number}-${settings.readingMode}`}
       bookId={bookId}
-      file={book.file}
+      book={book}
       chapter={chapter}
       startIndex={chapter.cards.findIndex((c) => c.number === number)}
       statuses={statuses}
@@ -43,7 +43,7 @@ export default function Reader() {
 
 interface ChapterReaderProps {
   bookId: string;
-  file: BookFile;
+  book: StoredBook;
   chapter: Chapter;
   startIndex: number;
   statuses: StatusMap;
@@ -54,7 +54,7 @@ interface ChapterReaderProps {
 // Height (vertical mode) or width (horizontal mode) of the next card left visible.
 const PEEK_PX = 56;
 
-function ChapterReader({ bookId, file, chapter, startIndex, statuses, bookmarked, horizontal }: ChapterReaderProps) {
+function ChapterReader({ bookId, book, chapter, startIndex, statuses, bookmarked, horizontal }: ChapterReaderProps) {
   const navigate = useNavigate();
   const cards = chapter.cards;
   const stage = useRef<HTMLDivElement>(null);
@@ -64,9 +64,9 @@ function ChapterReader({ bookId, file, chapter, startIndex, statuses, bookmarked
   const [menuOpen, setMenuOpen] = useState(false);
 
   const base = `/book/${encodeURIComponent(bookId)}`;
-  const chapterPos = file.chapters.indexOf(chapter);
-  const prevChapter = file.chapters[chapterPos - 1];
-  const nextChapter = file.chapters[chapterPos + 1];
+  const chapterPos = book.chapters.indexOf(chapter);
+  const prevChapter = book.chapters[chapterPos - 1];
+  const nextChapter = book.chapters[chapterPos + 1];
   const current = cards[index];
 
   const slides = () => Array.from(stage.current?.querySelectorAll<HTMLElement>(':scope > .slide') ?? []);
@@ -193,7 +193,7 @@ function ChapterReader({ bookId, file, chapter, startIndex, statuses, bookmarked
           <Icon name="back" />
         </Link>
         <div className="reader-titles">
-          <div className="reader-book">{file.book.title}</div>
+          <div className="reader-book">{book.title}</div>
           <div className="reader-chapter">{chapterLabel(chapter)}</div>
         </div>
         <Link to="/settings" className="icon-btn" aria-label="Reading settings">
@@ -217,7 +217,7 @@ function ChapterReader({ bookId, file, chapter, startIndex, statuses, bookmarked
           <div className="slide" key={c.id}>
             <article className="card">
               <div className="card-meta">
-                <span>p. {c.page}</span>
+                <span>{cardPlace(c)}</span>
                 <span>
                   {isRead(statuses, c.id) && (
                     <span className="read-mark" title="Read">
@@ -292,7 +292,7 @@ function ChapterReader({ bookId, file, chapter, startIndex, statuses, bookmarked
             <button
               className="sheet-item"
               onClick={() => {
-                const before = file.chapters.flatMap((ch) => ch.cards).filter((c) => c.number < current.number);
+                const before = book.chapters.flatMap((ch) => ch.cards).filter((c) => c.number < current.number);
                 setCardsRead(bookId, before.filter((c) => !isRead(statuses, c.id)).map((c) => c.id), true);
                 setMenuOpen(false);
               }}

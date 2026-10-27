@@ -15,18 +15,17 @@ export default function ChapterList() {
   if (book === undefined) return null;
   if (book === null) return <NotFound message="This book is not imported on this device." />;
 
-  const { file } = book;
-  const cards = allCards(file);
+  const cards = allCards(book);
   const read = countRead(cards, statuses);
   const posCard = position && cards.find((c) => c.id === position.cardId);
   const base = `/book/${encodeURIComponent(bookId)}`;
 
   return (
     <div className="screen">
-      <TopBar back="/" title={file.book.title} />
+      <TopBar back="/" title={book.title} />
       <main className="content">
-        <h1 className="h1">{file.book.title}</h1>
-        <p className="muted">{file.book.author}</p>
+        <h1 className="h1">{book.title}</h1>
+        <p className="muted">{book.author}</p>
         <ProgressBar value={percent(read, cards.length)} />
         <div className="row-between">
           <span className="muted small">
@@ -39,7 +38,7 @@ export default function ChapterList() {
 
         <h2 className="h2">Chapters</h2>
         <ul className="list">
-          {file.chapters.map((ch) => {
+          {book.chapters.map((ch) => {
             const done = countRead(ch.cards, statuses);
             const finished = done === ch.cards.length;
             return (
@@ -67,17 +66,6 @@ export default function ChapterList() {
           })}
         </ul>
 
-        <p className="meta-footer muted small">
-          {file.book.license && <>License: {file.book.license}</>}
-          {file.book.source_url && (
-            <>
-              {' · '}
-              <a href={file.book.source_url} target="_blank" rel="noreferrer">
-                Source
-              </a>
-            </>
-          )}
-        </p>
       </main>
     </div>
   );

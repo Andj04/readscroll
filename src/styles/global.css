@@ -663,3 +663,149 @@ button {
   color: var(--muted);
   text-align: center;
 }
+
+/* ---------- Import ---------- */
+
+.notice-warn {
+  background: var(--surface-2);
+  border-left: 3px solid #c08a2b;
+}
+
+.notice-warn ul,
+.notice-error p {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.notice-error p {
+  padding-left: 0;
+}
+
+.field {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.field .setting-label {
+  margin-bottom: 6px;
+}
+
+.field input,
+.review-row input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.import-progress {
+  margin: 24px 0;
+}
+
+.import-progress .progress {
+  margin: 8px 0;
+}
+
+.review-chapters {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.review-chapter {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.review-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-num {
+  width: 22px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.review-meta {
+  margin: 6px 0 8px 32px;
+}
+
+.review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 32px;
+}
+
+.chip:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.chip-danger {
+  color: var(--danger);
+}
+
+.chapter-detail {
+  margin: 14px 0 0 32px;
+}
+
+.preview-card {
+  margin: 8px 0 12px;
+  padding: 18px;
+}
+
+.preview-card .card-text {
+  font-size: calc(var(--reading-size) * 0.85);
+}
+
+.split-label {
+  margin-top: 12px;
+}
+
+.split-points {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 10px;
+}
+
+.split-points li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.875rem;
+}
+
+.split-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.split-heading .split-text {
+  font-weight: 600;
+}
+
+.review-footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 0 calc(14px + env(safe-area-inset-bottom));
+  background: var(--bg);
+}
+
+.book-missing {
+  border-style: dashed;
+  box-shadow: none;
+}

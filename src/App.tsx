@@ -9,6 +9,7 @@ import Reader from './screens/Reader';
 import Bookmarks from './screens/Bookmarks';
 import SettingsScreen from './screens/Settings';
 import NotFound from './screens/NotFound';
+import ImportReview from './screens/ImportReview';
 
 export default function App() {
   const settings = useSettings();
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="/book/:bookId" element={<ChapterList />} />
       <Route path="/book/:bookId/chapter/:chapterNumber" element={<CardPicker />} />
       <Route path="/book/:bookId/read/:cardNumber" element={<Reader />} />
+      <Route path="/import" element={<ImportReview />} />
       <Route path="/bookmarks" element={<Bookmarks />} />
       <Route path="/settings" element={<SettingsScreen />} />
       <Route path="*" element={<NotFound />} />

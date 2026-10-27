@@ -15,10 +15,10 @@ export default function CardPicker() {
   if (book === undefined) return null;
   if (book === null) return <NotFound message="This book is not imported on this device." />;
 
-  const chapter = book.file.chapters.find((c) => String(c.number) === params.chapterNumber);
+  const chapter = book.chapters.find((c) => String(c.number) === params.chapterNumber);
   if (!chapter) return <NotFound message="This chapter does not exist." />;
 
-  const cards = allCards(book.file);
+  const cards = allCards(book);
   const posNumber = cards.find((c) => c.id === position?.cardId)?.number ?? 1;
   const next = nextUnreadCard(cards, statuses, posNumber);
   const done = countRead(chapter.cards, statuses);
@@ -26,7 +26,7 @@ export default function CardPicker() {
 
   return (
     <div className="screen">
-      <TopBar back={base} title={book.file.book.title} />
+      <TopBar back={base} title={book.title} />
       <main className="content">
         <h1 className="h1">{chapterLabel(chapter)}</h1>
         <div className="row-between">

@@ -1,4 +1,6 @@
-import type { BookFile, Card, Chapter } from './model';
+import type { Card, Chapter } from './model';
+
+type WithChapters = { chapters: Chapter[] };
 import type { CardStatus } from './db';
 
 // Pure helpers to compute progress. No database access here.
@@ -14,7 +16,7 @@ export function isRead(statuses: StatusMap, cardId: string): boolean {
 }
 
 /** All cards of the book in order. Validation guarantees card n is at index n - 1. */
-export function allCards(book: BookFile): Card[] {
+export function allCards(book: WithChapters): Card[] {
   return book.chapters.flatMap((c) => c.cards);
 }
 
@@ -26,7 +28,7 @@ export function percent(read: number, total: number): number {
   return total === 0 ? 0 : Math.round((read / total) * 100);
 }
 
-export function chapterOfCard(book: BookFile, cardNumber: number): Chapter | undefined {
+export function chapterOfCard(book: WithChapters, cardNumber: number): Chapter | undefined {
   return book.chapters.find((ch) => ch.cards.some((c) => c.number === cardNumber));
 }
 
@@ -49,4 +51,9 @@ export function cardRange(chapter: Chapter): string {
 
 export function chapterLabel(chapter: Chapter): string {
   return chapter.title ? `Chapter ${chapter.number} · ${chapter.title}` : `Chapter ${chapter.number}`;
+}
+
+/** "p. 12" for books with pages, "12%" for EPUB and plain text. */
+export function cardPlace(card: Card): string {
+  return card.page !== null ? `p. ${card.page}` : (card.location ?? '');
 }

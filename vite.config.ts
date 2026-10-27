@@ -24,6 +24,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png}'],
+        // The import worker includes pdf.js (about 1.8 MB); it must be cached to import offline.
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         // Single page app: every navigation falls back to index.html when offline.
         navigateFallback: '/index.html',
         // Cache Google Fonts the first time they load, so text keeps its fonts offline.

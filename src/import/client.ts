@@ -17,6 +17,8 @@ export interface Job<T> {
   cancel: () => void;
 }
 
+const OUR_TYPES = new Set(['progress', 'parsed', 'built', 'error']);
+
 function run<T>(request: WorkerRequest, pick: (r: WorkerResponse) => T | undefined, onProgress: (p: ImportProgress) => void, transfer: Transferable[] = []): Job<T> {
   const worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' });
   let reject: (e: Error) => void = () => {};
@@ -24,6 +26,8 @@ function run<T>(request: WorkerRequest, pick: (r: WorkerResponse) => T | undefin
     reject = rej;
     worker.onmessage = (e: MessageEvent<WorkerResponse>) => {
       const msg = e.data;
+      // pdf.js, loaded inside our worker, announces itself with its own "ready" message: ignore anything that is not ours.
+      if (!msg || typeof msg !== 'object' || !OUR_TYPES.has((msg as { type?: string }).type ?? '')) return;
       if (msg.type === 'progress') {
         onProgress(msg);
         return;

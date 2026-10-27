@@ -3,6 +3,7 @@ import TopBar from '../components/TopBar';
 import { useSettings } from '../hooks/data';
 import { updateSettings } from '../lib/actions';
 import type { ReadingMode, Theme } from '../lib/db';
+import type { CardLength } from '../lib/model';
 
 const THEMES: { value: Theme; label: string }[] = [
   { value: 'system', label: 'System' },
@@ -13,6 +14,12 @@ const THEMES: { value: Theme; label: string }[] = [
 const MODES: { value: ReadingMode; label: string }[] = [
   { value: 'vertical', label: 'Vertical scroll' },
   { value: 'horizontal', label: 'Horizontal swipe' },
+];
+
+const LENGTHS: { value: CardLength; label: string }[] = [
+  { value: 'short', label: 'Short' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'long', label: 'Long' },
 ];
 
 export default function SettingsScreen() {
@@ -87,6 +94,27 @@ export default function SettingsScreen() {
           <p className="muted small">
             In both modes you can also tap the right half of the screen for the next card and the left half for the
             previous one. On a computer, the arrow keys and the space bar work too.
+          </p>
+        </section>
+
+        <section className="setting">
+          <div className="setting-label">Card length for new imports</div>
+          <div className="segmented" role="radiogroup" aria-label="Card length">
+            {LENGTHS.map((l) => (
+              <button
+                key={l.value}
+                role="radio"
+                aria-checked={(settings.cardLength ?? 'medium') === l.value}
+                className={(settings.cardLength ?? 'medium') === l.value ? 'on' : ''}
+                onClick={() => updateSettings({ cardLength: l.value })}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
+          <p className="muted small">
+            Short: about 40 to 80 words. Medium: 80 to 150. Long: 150 to 250. To change a book already imported, use
+            “Re-cut cards” on its chapter list.
           </p>
         </section>
       </main>
